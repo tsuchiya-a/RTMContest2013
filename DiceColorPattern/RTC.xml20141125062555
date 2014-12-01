@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<rtc:RtcProfile rtc:version="0.2" rtc:id="RTC:Ayaka Tsuchiya:Dice:DiceColorPattern:1.0.0" xmlns:rtcExt="http://www.openrtp.org/namespaces/rtc_ext" xmlns:rtcDoc="http://www.openrtp.org/namespaces/rtc_doc" xmlns:rtc="http://www.openrtp.org/namespaces/rtc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <rtc:BasicInfo xsi:type="rtcExt:basic_info_ext" rtcExt:saveProject="DiceColorPattern" rtc:updateDate="2013-11-19T21:59:25+09:00" rtc:creationDate="2013-11-19T21:59:25+09:00" rtc:abstract="DiceColorPatternは、サイコロの出目に応じてLEDの色を変化させるための表現コンポーネントである。" rtc:version="1.0.0" rtc:vendor="Ayaka Tsuchiya" rtc:maxInstances="1" rtc:executionType="ExtTrigExecutionContext" rtc:executionRate="1000.0" rtc:description="Determine LED color based on the input dice number" rtc:category="Dice" rtc:componentKind="DataFlowComponent" rtc:activityType="SPORADIC" rtc:componentType="COMMUTATIVE" rtc:name="DiceColorPattern">
+        <rtcDoc:Doc rtcDoc:reference="" rtcDoc:license="" rtcDoc:creator="土屋彩茜&lt;br/&gt;y10157@shibaura-it.ac.jp" rtcDoc:algorithm="" rtcDoc:inout="InPort&lt;br/&gt;ポート名/型/説明&lt;br/&gt;DiceNumber/TimedShort/サイコロの出目。1～6がそれぞれサイコロの目に対応している。それ以外の値が来た場合、LEDを消灯させる。&lt;br/&gt;OutPort&lt;br/&gt;ポート名/型/説明&lt;br/&gt;DiceColorRGB/TimedRGBColour/LEDの色(RGB)。サイコロの出目に応じて色が変わる。" rtcDoc:description="DiceColorPatternは、サイコロの出目に応じてLEDの色を変化させるための表現コンポーネントである。"/>
+        <rtcExt:VersionUpLogs></rtcExt:VersionUpLogs>
+    </rtc:BasicInfo>
+    <rtc:Actions>
+        <rtc:OnInitialize xsi:type="rtcDoc:action_status_doc" rtc:implemented="true"/>
+        <rtc:OnFinalize xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnStartup xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnShutdown xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnActivated xsi:type="rtcDoc:action_status_doc" rtc:implemented="true">
+            <rtcDoc:Doc rtcDoc:postCondition="" rtcDoc:preCondition="" rtcDoc:description="初期化を行う。"/>
+        </rtc:OnActivated>
+        <rtc:OnDeactivated xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnAborting xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnError xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnReset xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnExecute xsi:type="rtcDoc:action_status_doc" rtc:implemented="true">
+            <rtcDoc:Doc rtcDoc:postCondition="" rtcDoc:preCondition="" rtcDoc:description="InPortのDiceNumberからサイコロの出目を読み込み、その目に応じたLEDの色をOutPortのDiceColorRGBから出力する。Configurationでは、各目に対して好きなように色を設定することで、表現を決めることが出来る。サイコロが動いている間や出目が取得できない場合はLEDを消灯させる。"/>
+        </rtc:OnExecute>
+        <rtc:OnStateUpdate xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnRateChanged xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnAction xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnModeChanged xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+    </rtc:Actions>
+    <rtc:ConfigurationSet>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="255,0,255" rtc:type="vector&lt;int&gt;" rtc:name="Dice1">
+            <rtcDoc:Doc rtcDoc:constraint="表記：R,G,B" rtcDoc:range="各項0～255" rtcDoc:unit="" rtcDoc:description="サイコロの目が1の時のLEDの色(RGB)。&lt;br/&gt;デフォルト値はmagenta。" rtcDoc:defaultValue="255,0,255" rtcDoc:dataname="Dice1"/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="255,0,0" rtc:type="vector&lt;int&gt;" rtc:name="Dice2">
+            <rtcDoc:Doc rtcDoc:constraint="表記：R,G,B" rtcDoc:range="各項0～255" rtcDoc:unit="" rtcDoc:description="サイコロの目が2の時のLEDの色(RGB)。&lt;br/&gt;デフォルト値はred。" rtcDoc:defaultValue="255,0,0" rtcDoc:dataname="Dice2"/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="255,255,0" rtc:type="vector&lt;int&gt;" rtc:name="Dice3">
+            <rtcDoc:Doc rtcDoc:constraint="表記：R,G,B" rtcDoc:range="各項0～255" rtcDoc:unit="" rtcDoc:description="サイコロの目が3の時のLEDの色(RGB)。&lt;br/&gt;デフォルト値はyellow。" rtcDoc:defaultValue="255,255,0" rtcDoc:dataname="Dice3"/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="0,255,0" rtc:type="vector&lt;int&gt;" rtc:name="Dice4">
+            <rtcDoc:Doc rtcDoc:constraint="表記：R,G,B" rtcDoc:range="各項0～255" rtcDoc:unit="" rtcDoc:description="サイコロの目が4の時のLEDの色(RGB)。&lt;br/&gt;デフォルト値はgreen。" rtcDoc:defaultValue="0,255,0" rtcDoc:dataname="Dice4"/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="0,0,255" rtc:type="vector&lt;int&gt;" rtc:name="Dice5">
+            <rtcDoc:Doc rtcDoc:constraint="表記：R,G,B" rtcDoc:range="各項0～255" rtcDoc:unit="" rtcDoc:description="サイコロの目が5の時のLEDの色(RGB)。&lt;br/&gt;デフォルト値はblue。" rtcDoc:defaultValue="0,0,255" rtcDoc:dataname="Dice5"/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="255,255,255" rtc:type="vector&lt;int&gt;" rtc:name="Dice6">
+            <rtcDoc:Doc rtcDoc:constraint="表記：R,G,B" rtcDoc:range="各項0～255" rtcDoc:unit="" rtcDoc:description="サイコロの目が6の時のLEDの色(RGB)。&lt;br/&gt;デフォルト値はwhite。" rtcDoc:defaultValue="255,255,255" rtcDoc:dataname="Dice6"/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+    </rtc:ConfigurationSet>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="LEFT" rtcExt:variableName="" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="RTC::TimedShort" rtc:name="DiceNumber" rtc:portType="DataInPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="" rtcDoc:semantics="" rtcDoc:number="" rtcDoc:type="TimedShort" rtcDoc:description="サイコロの出目。1～6がそれぞれサイコロの目に対応している。それ以外の値が来た場合、LEDを消灯させる。"/>
+    </rtc:DataPorts>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="RIGHT" rtcExt:variableName="" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="RTC::TimedRGBColour" rtc:name="DiceColorRGB" rtc:portType="DataOutPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="" rtcDoc:semantics="" rtcDoc:number="" rtcDoc:type="TimedRGBColour" rtcDoc:description="LEDの色(RGB)。サイコロの出目に応じて色が変わる。"/>
+    </rtc:DataPorts>
+    <rtc:Language xsi:type="rtcExt:language_ext" rtc:kind="C++"/>
+</rtc:RtcProfile>

@@ -1,0 +1,149 @@
+Calibration_forAcceleration3DName - English
+========================
+
+.. toctree::
+   :hidden:
+
+   index_j
+
+
+Introduction
+============
+
+
+For a full list of classes and functions, see the `API documentation`_.
+
+.. _`API Documentation`:
+   doxygen/html/index.html
+
+Requirements
+============
+
+Calibration_forAcceleration3D uses the `CMake build system`. You will need at least version
+2.8 to be able to build the component.
+
+.. _`CMAke build system`:
+   http://www.cmake.org
+
+
+Installation
+============
+
+Binary
+------
+
+Users of Windows can install the component using the binary installer. This
+will install the component and all its necessary dependencies. It is the
+recommended method of installation in Windows.
+
+- Download the installer from the website.
+- Double-click the executable file to begin installation.
+- Follow the instructions to install the component.
+- You may need to restart your computer for environment variable changes
+  to take effect before using the component.
+
+The component can be launched by double-clicking the
+``Calibration_forAcceleration3DComp`` executable. The ``Calibration_forAcceleration3D`` library
+is available for loading into a manager, using the initialisation function
+``Calibration_forAcceleration3DInit``.
+
+From source
+-----------
+
+Follow these steps to install Calibration_forAcceleration3D from source in any operating
+system:
+
+- Download the source, either from the repository or a source archive,
+  and extract it somewhere::
+
+    tar -xvzf Calibration_forAcceleration3D-1.0.0.tar.gz
+
+- Change to the directory containing the extracted source::
+
+    cd Calibration_forAcceleration3D-1.0.0
+
+- Create a directory called ``build``::
+
+    mkdir build
+
+- Change to that directory::
+
+    cd build
+
+- Run cmake or cmake-gui::
+
+    cmake ../
+
+- If no errors occurred, run make::
+
+    make
+
+- Finally, install the component. Ensure the necessary permissions to
+  install into the chosen prefix are available::
+
+    make install
+
+- The install destination can be changed by executing ccmake and changing
+  the variable ``CMAKE_INSTALL_PREFIX``::
+
+    ccmake ../
+
+The component is now ready for use. See the next section for instructions on
+configuring the component.
+
+Calibration_forAcceleration3D can be launched in stand-alone mode by executing the
+``Calibration_forAcceleration3DComp`` executable (installed into ``${prefix}/components/bin``).
+Alternatively, ``libCalibration_forAcceleration3D.so`` can be loaded into a manager, using the
+initialisation function ``Calibration_forAcceleration3DInit``. This shared object can be found in
+``${prefix}/components/lib`` or ``${prefix}/components/lib64``.
+
+
+Configuration
+=============
+
+The available configuration parameters are described below:
+
+================ ================== ================ ======
+Parameter        Data type          Default Value    Effect
+================ ================== ================ ======
+params_x         std::vector<double> 1.0,0.0          x軸に対するパラメータ。<br/>x軸のセンサ値をAx+Bの線形で表し、(A,B)の順で設定する。
+params_y         std::vector<double> 1.0,0.0          y軸に対するパラメータ。<br/>y軸のセンサ値をAy+Bの線形で表し、(A,B)の順で設定する。
+params_z         std::vector<double> 1.0,0.0          z軸に対するパラメータ。<br/>z軸のセンサ値をAz+Bの線形で表し、(A,B)の順で設定する。
+params_theta     double             0                x軸の角度に対するパラメータ。
+params_psi       double             0                y軸の角度に対するパラメータ。
+params_phi       double             0                z軸の角度に対するパラメータ。
+================ ================== ================ ======
+
+Ports
+=====
+
+The ports provided by the component are described below:
+
+=============== =========== ============================== =======
+Name            Type        Data type                      Purpose
+=============== =========== ============================== =======
+Acceleration3DIn InPort      RTC::Acceleration3D            Acceleration3D型のセンサ値を取得するポート。
+TimedDoubleSeqIn InPort      RTC::TimedDoubleSeq            TimedDoubleSeq型のセンサ値を取得するポート。
+Acceleration3DOut OutPort     RTC::Acceleration3D            Acceleration3D型のセンサ値を出力するポート。
+TimedDoubleSeqOut OutPort     RTC::TimedDoubleSeq            TimedDoubleSeq型のセンサ値を出力するポート。
+=============== =========== ============================== =======
+
+Examples
+========
+
+An example configuration file is provided in the
+``${prefix}/components/share/Calibration_forAcceleration3D/examples/conf/`` directory.
+
+Changelog
+=========
+
+
+
+License
+=======
+
+This software is developed at the National Institute of Advanced
+Industrial Science and Technology. Approval number H23PRO-????. This
+software is licensed under the Lesser General Public License. See
+COPYING.LESSER.
+

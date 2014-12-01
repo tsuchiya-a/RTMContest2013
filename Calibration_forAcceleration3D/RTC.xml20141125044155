@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<rtc:RtcProfile rtc:version="0.2" rtc:id="RTC:Ayaka Tsuchiya:tool:Calibration_forAcceleration3D:1.0.0" xmlns:rtcExt="http://www.openrtp.org/namespaces/rtc_ext" xmlns:rtcDoc="http://www.openrtp.org/namespaces/rtc_doc" xmlns:rtc="http://www.openrtp.org/namespaces/rtc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <rtc:BasicInfo xsi:type="rtcExt:basic_info_ext" rtcExt:saveProject="Calibration_forAcceleration3D" rtc:updateDate="2014-11-25T03:25:46+09:00" rtc:creationDate="2014-11-25T03:25:46+09:00" rtc:abstract="入力されたセンサ値に対し、Configurationで設定したキャリブレーションパラメータでキャリブレーションを行い、結果を出力するコンポーネント。 入力と出力の型は、TimedDoubleSeq型とAcceleration3D型から選択でき、 型の変換用に使用することもできる。 " rtc:version="1.0.0" rtc:vendor="Ayaka Tsuchiya" rtc:maxInstances="1" rtc:executionType="PeriodicExecutionContext" rtc:executionRate="1000.0" rtc:description="Calibration for Acceleration3D" rtc:category="tool" rtc:componentKind="DataFlowComponent" rtc:activityType="PERIODIC" rtc:componentType="COMMUTATIVE" rtc:name="Calibration_forAcceleration3D">
+        <rtcDoc:Doc rtcDoc:reference="" rtcDoc:license="" rtcDoc:creator="土屋彩茜&lt;br/&gt;ma14076@shibaura-it.ac.jp" rtcDoc:algorithm="" rtcDoc:inout="InPort:&lt;name&gt;/&lt;datatype&gt;/&lt;documentation&gt;&lt;br/&gt;Acceleration3DIn/ Acceleration3D /Acceleration3D型のセンサ値を取得するポート。&lt;br/&gt;TimedDoubleSeqIn/ TimedDoubleSeq/TimedDoubleSeq型のセンサ値を取得するポート。&lt;br/&gt;&lt;br/&gt;OutPort: &lt;name&gt;/&lt;datatype&gt;/&lt;documentation&gt;&lt;br/&gt;Acceleration3DOut/ Acceleration3D /Acceleration3D型のセンサ値を出力するポート。&lt;br/&gt;TimedDoubleSeqOut/ TimedDoubleSeq/TimedDoubleSeq型のセンサ値を出力するポート。&lt;br/&gt;&lt;br/&gt;Configuration:&lt;name&gt;/&lt;datatype&gt;/&lt; default&gt;/&lt;widget&gt;/&lt;documentation&gt;&lt;br/&gt;params_x/std::vector&lt;double&gt;/1.0,0.0/text/x軸に対するパラメータ。x軸のセンサ値をAx+Bの線形で表し、(A,B)の順で設定する。&lt;br/&gt;params_y/std::vector&lt;double&gt;/1.0,0.0/text/y軸に対するパラメータ。y軸のセンサ値をAy+Bの線形で表し、(A,B)の順で設定する。&lt;br/&gt;params_z/std::vector&lt;double&gt;/1.0,0.0/text/z軸に対するパラメータ。z軸のセンサ値をAz+Bの線形で表し、(A,B)の順で設定する。&lt;br/&gt;params_theta/double/0/text/x軸の角度に対するパラメータ。&lt;br/&gt;params_psi/double/0/text/y軸の角度に対するパラメータ。&lt;br/&gt;params_phi/double/0/text/z軸の角度に対するパラメータ。" rtcDoc:description="入力されたセンサ値に対し、Configurationで設定したキャリブレーションパラメータでキャリブレーションを行い、結果を出力するコンポーネント。&lt;br/&gt;入力と出力の型は、TimedDoubleSeq型とAcceleration３D型から選択でき、&lt;br/&gt;型の変換用に使用することもできる。"/>
+        <rtcExt:VersionUpLogs></rtcExt:VersionUpLogs>
+    </rtc:BasicInfo>
+    <rtc:Actions>
+        <rtc:OnInitialize xsi:type="rtcDoc:action_status_doc" rtc:implemented="true"/>
+        <rtc:OnFinalize xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnStartup xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnShutdown xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnActivated xsi:type="rtcDoc:action_status_doc" rtc:implemented="true">
+            <rtcDoc:Doc rtcDoc:postCondition="" rtcDoc:preCondition="" rtcDoc:description="初期化処理を行う。"/>
+        </rtc:OnActivated>
+        <rtc:OnDeactivated xsi:type="rtcDoc:action_status_doc" rtc:implemented="true">
+            <rtcDoc:Doc rtcDoc:postCondition="" rtcDoc:preCondition="" rtcDoc:description="終了処理を行う。"/>
+        </rtc:OnDeactivated>
+        <rtc:OnAborting xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnError xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnReset xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnExecute xsi:type="rtcDoc:action_status_doc" rtc:implemented="true">
+            <rtcDoc:Doc rtcDoc:postCondition="" rtcDoc:preCondition="" rtcDoc:description="キャリブレーションや型の変換を行う。"/>
+        </rtc:OnExecute>
+        <rtc:OnStateUpdate xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnRateChanged xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnAction xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnModeChanged xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+    </rtc:Actions>
+    <rtc:ConfigurationSet>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="1.0,0.0" rtc:type="std::vector&lt;double&gt;" rtc:name="params_x">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="x軸に対するパラメータ。&lt;br/&gt;x軸のセンサ値をAx+Bの線形で表し、(A,B)の順で設定する。" rtcDoc:defaultValue="1.0,0.0" rtcDoc:dataname="params_x"/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="1.0,0.0" rtc:type="std::vector&lt;double&gt;" rtc:name="params_y">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="y軸に対するパラメータ。&lt;br/&gt;y軸のセンサ値をAy+Bの線形で表し、(A,B)の順で設定する。" rtcDoc:defaultValue="1.0,0.0" rtcDoc:dataname="params_y"/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="1.0,0.0" rtc:type="std::vector&lt;double&gt;" rtc:name="params_z">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="z軸に対するパラメータ。&lt;br/&gt;z軸のセンサ値をAz+Bの線形で表し、(A,B)の順で設定する。" rtcDoc:defaultValue="1.0,0.0" rtcDoc:dataname="params_z"/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="0" rtc:type="double" rtc:name="params_theta">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="x軸の角度に対するパラメータ。" rtcDoc:defaultValue="0" rtcDoc:dataname="params_theta"/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="0" rtc:type="double" rtc:name="params_psi">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="y軸の角度に対するパラメータ。" rtcDoc:defaultValue="0" rtcDoc:dataname="params_psi"/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="0" rtc:type="double" rtc:name="params_phi">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="z軸の角度に対するパラメータ。" rtcDoc:defaultValue="0" rtcDoc:dataname="params_phi"/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="TimedDoubleSeqIn" rtc:type="string" rtc:name="InPortSelect">
+            <rtc:Constraint>
+                <rtc:ConstraintUnitType>
+                    <rtc:Or>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>Acceleration3DIn</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>TimedDoubleSeqIn</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                    </rtc:Or>
+                </rtc:ConstraintUnitType>
+            </rtc:Constraint>
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="入力ポートの型を選択する。" rtcDoc:defaultValue="TimedDoubleSeqIn" rtcDoc:dataname="InPortSelect"/>
+            <rtcExt:Properties rtcExt:value="radio" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="Acceleration3DOut" rtc:type="string" rtc:name="OutPortSelect">
+            <rtc:Constraint>
+                <rtc:ConstraintUnitType>
+                    <rtc:Or>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>Acceleration3DOut</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>TimedDoubleSeqOut</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                    </rtc:Or>
+                </rtc:ConstraintUnitType>
+            </rtc:Constraint>
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="出力ポートの型を選択する。" rtcDoc:defaultValue="TimedDoubleSeqOut" rtcDoc:dataname="OutPortSelect"/>
+            <rtcExt:Properties rtcExt:value="radio" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+    </rtc:ConfigurationSet>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="LEFT" rtcExt:variableName="" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="RTC::Acceleration3D" rtc:name="Acceleration3DIn" rtc:portType="DataInPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="m/s/s" rtcDoc:semantics="" rtcDoc:number="" rtcDoc:type="Acceleration3D" rtcDoc:description="Acceleration3D型のセンサ値を取得するポート。"/>
+    </rtc:DataPorts>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="LEFT" rtcExt:variableName="" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="RTC::TimedDoubleSeq" rtc:name="TimedDoubleSeqIn" rtc:portType="DataInPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="m/s/s" rtcDoc:semantics="" rtcDoc:number="" rtcDoc:type="TimedDoubleSeq" rtcDoc:description="TimedDoubleSeq型のセンサ値を取得するポート。"/>
+    </rtc:DataPorts>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="RIGHT" rtcExt:variableName="" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="RTC::Acceleration3D" rtc:name="Acceleration3DOut" rtc:portType="DataOutPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="m/s/s" rtcDoc:semantics="" rtcDoc:number="" rtcDoc:type="Acceleration3D" rtcDoc:description="Acceleration3D型のセンサ値を出力するポート。"/>
+    </rtc:DataPorts>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="RIGHT" rtcExt:variableName="" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="RTC::TimedDoubleSeq" rtc:name="TimedDoubleSeqOut" rtc:portType="DataOutPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="m/s/s" rtcDoc:semantics="" rtcDoc:number="" rtcDoc:type="TimedDoubleSeq" rtcDoc:description="TimedDoubleSeq型のセンサ値を出力するポート。"/>
+    </rtc:DataPorts>
+    <rtc:Language xsi:type="rtcExt:language_ext" rtc:kind="C++"/>
+</rtc:RtcProfile>

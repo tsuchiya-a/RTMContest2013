@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<rtc:RtcProfile rtc:version="0.2" rtc:id="RTC:Ayaka Tsuchiya:Dice:DiceCalculation:1.0.0" xmlns:rtcExt="http://www.openrtp.org/namespaces/rtc_ext" xmlns:rtcDoc="http://www.openrtp.org/namespaces/rtc_doc" xmlns:rtc="http://www.openrtp.org/namespaces/rtc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <rtc:BasicInfo xsi:type="rtcExt:basic_info_ext" rtcExt:saveProject="DiceCalculation" rtc:updateDate="2013-11-19T19:39:47.717+09:00" rtc:creationDate="2013-11-19T15:40:16+09:00" rtc:abstract="正六面体のサイコロの出目を算出するコンポーネント。InPortのdiceAccelerationから3軸加速度センサの値を読み込み、静止状態の時サイコロの上面にあたる目を現在の出目としてOutPortのdiceNumberから出力する。
+Configurationでは静止判定と上面判定の閾値を変更可能。静止判定は、現在の加速度と重力加速度を比較することで行い、SensorThresholdで与えられた閾値より低い時間が、StopTimeThresholdで設定した時間続いた場合静止状態となる。また、SlopeThresholdで設定した角度をサイコロの傾き誤差とし、この範囲内であれば上面の決定が出来る。
+アクティブ後、InPortのdiceAccelerationからセンサの値が入力される度に静止状態の判定に入る。静止状態と判定された場合は上面の判定を行い、その結果上面が決定されたときは、その面の値をOutPortのDiceNumberから出力する。判定ができない場合は-1をOutPortから出力する。その後、静止状態が解除されるまでは出力を行わない。解除されている間は0を出力する。
+また、PlusX～MinusZでは各面の目の値を設定できる。実機製作時に、軸が各面に対して90°になるように設置すること。その後、設置した面に対応する数値を設定する。デフォルト値は+X軸方向に1、+Y軸方向に2、+Z軸方向に3が来て、それぞれ対面との和が7になるようにして設定してある。" rtc:version="1.0.0" rtc:vendor="Ayaka Tsuchiya" rtc:maxInstances="1" rtc:executionType="PeriodicExecutionContext" rtc:executionRate="1000.0" rtc:description="Calculate dice number based on the acceleration data and output the number if the dice is stationary" rtc:category="Dice" rtc:componentKind="DataFlowComponent" rtc:activityType="SPORADIC" rtc:componentType="COMMUTATIVE" rtc:name="DiceCalculation">
+        <rtcDoc:Doc rtcDoc:reference="" rtcDoc:license="" rtcDoc:creator="土屋彩茜&lt;br/&gt;y10157@shibaura-it.ac.jp" rtcDoc:algorithm="" rtcDoc:inout="InPort&lt;br/&gt;ポート名/型/説明&lt;br/&gt;DiceAcceleration/TimedAcceleration3D/3軸加速度センサから得られた加速度。&lt;br/&gt;OutPort&lt;br/&gt;ポート名/型/説明&lt;br/&gt;DiceNumber/TimedShort/サイコロの出目。サイコロの静止状態が確認され、上面が決定する場合、上面にある目の値を出力する。上面が決定出来ない場合は-1を出力する。静止していない時は0を出力する。" rtcDoc:description="正六面体のサイコロの出目を算出するコンポーネント。InPortのdiceAccelerationから3軸加速度センサの値を読み込み、静止状態の時サイコロの上面にあたる目を現在の出目としてOutPortのdiceNumberから出力する。&lt;br/&gt;Configurationでは静止判定と上面判定の閾値を変更可能。静止判定は、現在の加速度と重力加速度を比較することで行い、SensorThresholdで与えられた閾値より低い時間が、StopTimeThresholdで設定した時間続いた場合静止状態となる。また、SlopeThresholdで設定した角度をサイコロの傾き誤差とし、この範囲内であれば上面の決定が出来る。&lt;br/&gt;アクティブ後、InPortのdiceAccelerationからセンサの値が入力される度に静止状態の判定に入る。静止状態と判定された場合は上面の判定を行い、その結果上面が決定されたときは、その面の値をOutPortのDiceNumberから出力する。判定ができない場合は-1をOutPortから出力する。その後、静止状態が解除されるまでは出力を行わない。解除されている間は0を出力する。&lt;br/&gt;また、PlusX～MinusZでは各面の目の値を設定できる。実機製作時に、軸が各面に対して90°になるように設置すること。その後、設置した面に対応する数値を設定する。デフォルト値は+X軸方向に1、+Y軸方向に2、+Z軸方向に3が来て、それぞれ対面との和が7になるようにして設定してある。"/>
+        <rtcExt:VersionUpLogs></rtcExt:VersionUpLogs>
+    </rtc:BasicInfo>
+    <rtc:Actions>
+        <rtc:OnInitialize xsi:type="rtcDoc:action_status_doc" rtc:implemented="true"/>
+        <rtc:OnFinalize xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnStartup xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnShutdown xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnActivated xsi:type="rtcDoc:action_status_doc" rtc:implemented="true">
+            <rtcDoc:Doc rtcDoc:postCondition="" rtcDoc:preCondition="" rtcDoc:description="初期化を行う。"/>
+        </rtc:OnActivated>
+        <rtc:OnDeactivated xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnAborting xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnError xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnReset xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnExecute xsi:type="rtcDoc:action_status_doc" rtc:implemented="true">
+            <rtcDoc:Doc rtcDoc:postCondition="" rtcDoc:preCondition="" rtcDoc:description="diceAccelerationから3軸加速度センサの値を読み込み、静止状態の判定と、静止状態の場合はサイコロの上面にあたる目を計算し、現在の出目としてOutPortのdiceNumberから出力する。"/>
+        </rtc:OnExecute>
+        <rtc:OnStateUpdate xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnRateChanged xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnAction xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnModeChanged xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+    </rtc:Actions>
+    <rtc:ConfigurationSet>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="1" rtc:type="int" rtc:name="PlusX">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="+X軸方向にある面に対応する目の数値。" rtcDoc:defaultValue="1" rtcDoc:dataname="PlusX"/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="2" rtc:type="int" rtc:name="PlusY">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="+Y軸方向にある面に対応する目の数値。" rtcDoc:defaultValue="2" rtcDoc:dataname="PlusY"/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="3" rtc:type="int" rtc:name="PlusZ">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="Z軸方向にある面に対応する目の数値。" rtcDoc:defaultValue="3" rtcDoc:dataname="PlusZ"/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="6" rtc:type="int" rtc:name="MinusX">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="-X軸方向にある面に対応する目の数値。" rtcDoc:defaultValue="6" rtcDoc:dataname="MinusX"/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="5" rtc:type="int" rtc:name="MinusY">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="-Y軸方向にある面に対応する目の数値。" rtcDoc:defaultValue="5" rtcDoc:dataname="MinusY"/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="4" rtc:type="int" rtc:name="MinusZ">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="-Z軸方向にある面に対応する目の数値。" rtcDoc:defaultValue="4" rtcDoc:dataname="MinusZ"/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="m/s^2" rtc:defaultValue="0.15" rtc:type="double" rtc:name="SensorThreshold">
+            <rtc:Constraint>
+                <rtc:ConstraintUnitType>
+                    <rtc:propertyIsGreaterThanOrEqualTo rtc:matchCase="false">
+                        <rtc:Literal>0</rtc:Literal>
+                    </rtc:propertyIsGreaterThanOrEqualTo>
+                </rtc:ConstraintUnitType>
+            </rtc:Constraint>
+            <rtcDoc:Doc rtcDoc:constraint="x&gt;=0" rtcDoc:range="0以上" rtcDoc:unit="m/s^2" rtcDoc:description="重力加速度と入力加速度を比較し、差がこの値より小さい場合、静止していると判断するための閾値。単位はm/s^2。" rtcDoc:defaultValue="0.15" rtcDoc:dataname="SensorThreshold"/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="s" rtc:defaultValue="1.0" rtc:type="double" rtc:name="StopTimeThreshold">
+            <rtc:Constraint>
+                <rtc:ConstraintUnitType>
+                    <rtc:propertyIsGreaterThanOrEqualTo rtc:matchCase="false">
+                        <rtc:Literal>0</rtc:Literal>
+                    </rtc:propertyIsGreaterThanOrEqualTo>
+                </rtc:ConstraintUnitType>
+            </rtc:Constraint>
+            <rtcDoc:Doc rtcDoc:constraint="x&gt;=0" rtcDoc:range="0以上" rtcDoc:unit="s" rtcDoc:description="この時間、静止している状態が続いたら、サイコロが静止状態にあると判断する。単位は秒。" rtcDoc:defaultValue="1.0" rtcDoc:dataname="StopTimeThreshold"/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="deg" rtc:defaultValue="15" rtc:type="int" rtc:name="SlopeThreshold">
+            <rtc:Constraint>
+                <rtc:ConstraintUnitType>
+                    <rtc:And>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsGreaterThanOrEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>0</rtc:Literal>
+                                </rtc:propertyIsGreaterThanOrEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsLessThan rtc:matchCase="false">
+                                    <rtc:Literal>45</rtc:Literal>
+                                </rtc:propertyIsLessThan>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                    </rtc:And>
+                </rtc:ConstraintUnitType>
+            </rtc:Constraint>
+            <rtcDoc:Doc rtcDoc:constraint="0&lt;=x&lt;45" rtcDoc:range="0&lt;=x&lt;45" rtcDoc:unit="deg" rtcDoc:description="上面を特定するための閾値。この傾きの角度分を誤差とする。単位は度。範囲は0≤SlopeThreshold&lt;45。" rtcDoc:defaultValue="15" rtcDoc:dataname="SlopeThreshold"/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+    </rtc:ConfigurationSet>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="LEFT" rtcExt:variableName="" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="RTC::TimedAcceleration3D" rtc:name="DiceAcceleration" rtc:portType="DataInPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="m/s^2" rtcDoc:semantics="" rtcDoc:number="" rtcDoc:type="TimedAcceleration3D" rtcDoc:description="3軸加速度センサから得られた加速度。"/>
+    </rtc:DataPorts>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="RIGHT" rtcExt:variableName="" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="RTC::TimedShort" rtc:name="DiceNumber" rtc:portType="DataOutPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="" rtcDoc:semantics="" rtcDoc:number="" rtcDoc:type="TimedShort" rtcDoc:description="サイコロの出目。サイコロの静止状態が確認され、上面が決定する場合、上面にある目の値を出力する。上面が決定出来ない場合は-1を出力する。静止していない時は0を出力する。"/>
+    </rtc:DataPorts>
+    <rtc:Language xsi:type="rtcExt:language_ext" rtc:kind="C++"/>
+</rtc:RtcProfile>

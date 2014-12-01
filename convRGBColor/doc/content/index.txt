@@ -1,0 +1,149 @@
+convRGBColorName - English
+========================
+
+.. toctree::
+   :hidden:
+
+   index_j
+
+
+Introduction
+============
+
+
+For a full list of classes and functions, see the `API documentation`_.
+
+.. _`API Documentation`:
+   doxygen/html/index.html
+
+Requirements
+============
+
+convRGBColor uses the `CMake build system`. You will need at least version
+2.8 to be able to build the component.
+
+.. _`CMAke build system`:
+   http://www.cmake.org
+
+
+Installation
+============
+
+Binary
+------
+
+Users of Windows can install the component using the binary installer. This
+will install the component and all its necessary dependencies. It is the
+recommended method of installation in Windows.
+
+- Download the installer from the website.
+- Double-click the executable file to begin installation.
+- Follow the instructions to install the component.
+- You may need to restart your computer for environment variable changes
+  to take effect before using the component.
+
+The component can be launched by double-clicking the
+``convRGBColorComp`` executable. The ``convRGBColor`` library
+is available for loading into a manager, using the initialisation function
+``convRGBColorInit``.
+
+From source
+-----------
+
+Follow these steps to install convRGBColor from source in any operating
+system:
+
+- Download the source, either from the repository or a source archive,
+  and extract it somewhere::
+
+    tar -xvzf convRGBColor-1.0.0.tar.gz
+
+- Change to the directory containing the extracted source::
+
+    cd convRGBColor-1.0.0
+
+- Create a directory called ``build``::
+
+    mkdir build
+
+- Change to that directory::
+
+    cd build
+
+- Run cmake or cmake-gui::
+
+    cmake ../
+
+- If no errors occurred, run make::
+
+    make
+
+- Finally, install the component. Ensure the necessary permissions to
+  install into the chosen prefix are available::
+
+    make install
+
+- The install destination can be changed by executing ccmake and changing
+  the variable ``CMAKE_INSTALL_PREFIX``::
+
+    ccmake ../
+
+The component is now ready for use. See the next section for instructions on
+configuring the component.
+
+convRGBColor can be launched in stand-alone mode by executing the
+``convRGBColorComp`` executable (installed into ``${prefix}/components/bin``).
+Alternatively, ``libconvRGBColor.so`` can be loaded into a manager, using the
+initialisation function ``convRGBColorInit``. This shared object can be found in
+``${prefix}/components/lib`` or ``${prefix}/components/lib64``.
+
+
+Configuration
+=============
+
+The available configuration parameters are described below:
+
+================ ================== ================ ======
+Parameter        Data type          Default Value    Effect
+================ ================== ================ ======
+InPortSelect     string             TimedShortSeqIn  InPortの型を選択する。
+OutPortSelect    string             TimedRGBColourOut 出力ポートの型を選択する。
+MaxData          double             255              入力データの最大値を指定する。<br/>これを超えた入力は最大値と等しいとみなす。
+MinData          double             0                入力データの最小値を指定する。<br/>これより小さい入力は最小値と等しいとみなす。
+================ ================== ================ ======
+
+Ports
+=====
+
+The ports provided by the component are described below:
+
+=============== =========== ============================== =======
+Name            Type        Data type                      Purpose
+=============== =========== ============================== =======
+TimedDoubleSeqIn InPort      RTC::TimedDoubleSeq            TimedDoubleSeq型のデータを取得するポート。<br/>配列の要素は0~2の前3つを利用し、足りない場合は0で補填する。
+TimedShortSeqIn InPort      RTC::TimedShortSeq             TimedShortSeq型のデータを取得するポート。<br/>配列の要素は0~2の前3つを利用し、足りない場合は0で補填する。
+TimedRGBColourIn InPort      RTC::TimedRGBColour            TimedRGBColour型のデータを取得するポート。<br/>配列の要素は0~2の前3つを利用し、足りない場合は0で補填する。
+TimedDoubleSeqOut OutPort     RTC::TimedDoubleSeq            TimedDoubleSeq型のデータを出力するポート。<br/>配列の要素は0~2の前3つを利用し、足りない場合は0で補填する。
+TimedShortSeqOut OutPort     RTC::TimedShortSeq             TimedShortSeq型のデータを出力するポート。<br/>配列の要素は0~2の前3つを利用し、足りない場合は0で補填する。
+TimedRGBColourOut OutPort     RTC::TimedRGBColour            TimedRGBColour型のデータを出力するポート。<br/>配列の要素は0~2の前3つを利用し、足りない場合は0で補填する。
+=============== =========== ============================== =======
+
+Examples
+========
+
+An example configuration file is provided in the
+``${prefix}/components/share/convRGBColor/examples/conf/`` directory.
+
+Changelog
+=========
+
+
+
+License
+=======
+
+This software is developed at the National Institute of Advanced
+Industrial Science and Technology. Approval number H23PRO-????. This
+software is licensed under the Lesser General Public License. See
+COPYING.LESSER.
+

@@ -1,0 +1,150 @@
+DiceCalculationName - English
+========================
+
+.. toctree::
+   :hidden:
+
+   index_j
+
+
+Introduction
+============
+
+
+For a full list of classes and functions, see the `API documentation`_.
+
+.. _`API Documentation`:
+   doxygen/html/index.html
+
+Requirements
+============
+
+DiceCalculation uses the `CMake build system`. You will need at least version
+2.8 to be able to build the component.
+
+.. _`CMAke build system`:
+   http://www.cmake.org
+
+
+Installation
+============
+
+Binary
+------
+
+Users of Windows can install the component using the binary installer. This
+will install the component and all its necessary dependencies. It is the
+recommended method of installation in Windows.
+
+- Download the installer from the website.
+- Double-click the executable file to begin installation.
+- Follow the instructions to install the component.
+- You may need to restart your computer for environment variable changes
+  to take effect before using the component.
+
+The component can be launched by double-clicking the
+``DiceCalculationComp`` executable. The ``DiceCalculation`` library
+is available for loading into a manager, using the initialisation function
+``DiceCalculationInit``.
+
+From source
+-----------
+
+Follow these steps to install DiceCalculation from source in any operating
+system:
+
+- Download the source, either from the repository or a source archive,
+  and extract it somewhere::
+
+    tar -xvzf DiceCalculation-1.0.0.tar.gz
+
+- Change to the directory containing the extracted source::
+
+    cd DiceCalculation-1.0.0
+
+- Create a directory called ``build``::
+
+    mkdir build
+
+- Change to that directory::
+
+    cd build
+
+- Run cmake or cmake-gui::
+
+    cmake ../
+
+- If no errors occurred, run make::
+
+    make
+
+- Finally, install the component. Ensure the necessary permissions to
+  install into the chosen prefix are available::
+
+    make install
+
+- The install destination can be changed by executing ccmake and changing
+  the variable ``CMAKE_INSTALL_PREFIX``::
+
+    ccmake ../
+
+The component is now ready for use. See the next section for instructions on
+configuring the component.
+
+DiceCalculation can be launched in stand-alone mode by executing the
+``DiceCalculationComp`` executable (installed into ``${prefix}/components/bin``).
+Alternatively, ``libDiceCalculation.so`` can be loaded into a manager, using the
+initialisation function ``DiceCalculationInit``. This shared object can be found in
+``${prefix}/components/lib`` or ``${prefix}/components/lib64``.
+
+
+Configuration
+=============
+
+The available configuration parameters are described below:
+
+================ ================== ================ ======
+Parameter        Data type          Default Value    Effect
+================ ================== ================ ======
+PlusX            int                1                +X軸方向にある面に対応する目の数値。
+PlusY            int                2                +Y軸方向にある面に対応する目の数値。
+PlusZ            int                3                Z軸方向にある面に対応する目の数値。
+MinusX           int                6                -X軸方向にある面に対応する目の数値。
+MinusY           int                5                -Y軸方向にある面に対応する目の数値。
+MinusZ           int                4                -Z軸方向にある面に対応する目の数値。
+SensorThreshold  double             0.15             重力加速度と入力加速度を比較し、差がこの値より小さい場合、静止していると判断するための閾値。単位はm/s^2。
+StopTimeThreshold double             1.0              この時間、静止している状態が続いたら、サイコロが静止状態にあると判断する。単位は秒。
+SlopeThreshold   int                15               上面を特定するための閾値。この傾きの角度分を誤差とする。単位は度。範囲は0≤SlopeThreshold<45。
+================ ================== ================ ======
+
+Ports
+=====
+
+The ports provided by the component are described below:
+
+=============== =========== ============================== =======
+Name            Type        Data type                      Purpose
+=============== =========== ============================== =======
+DiceAcceleration InPort      RTC::TimedAcceleration3D       3軸加速度センサから得られた加速度。
+DiceNumber      OutPort     RTC::TimedShort                サイコロの出目。サイコロの静止状態が確認され、上面が決定する場合、上面にある目の値を出力する。上面が決定出来ない場合は-1を出力する。静止していない時は0を出力する。
+=============== =========== ============================== =======
+
+Examples
+========
+
+An example configuration file is provided in the
+``${prefix}/components/share/DiceCalculation/examples/conf/`` directory.
+
+Changelog
+=========
+
+
+
+License
+=======
+
+This software is developed at the National Institute of Advanced
+Industrial Science and Technology. Approval number H23PRO-????. This
+software is licensed under the Lesser General Public License. See
+COPYING.LESSER.
+

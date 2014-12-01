@@ -1,0 +1,54 @@
+# DiceMemory CMake config file
+#
+# This file sets the following variables:
+# DiceMemory_FOUND - Always TRUE.
+# DiceMemory_INCLUDE_DIRS - Directories containing the DiceMemory include files.
+# DiceMemory_IDL_DIRS - Directories containing the DiceMemory IDL files.
+# DiceMemory_LIBRARIES - Libraries needed to use DiceMemory.
+# DiceMemory_DEFINITIONS - Compiler flags for DiceMemory.
+# DiceMemory_VERSION - The version of DiceMemory found.
+# DiceMemory_VERSION_MAJOR - The major version of DiceMemory found.
+# DiceMemory_VERSION_MINOR - The minor version of DiceMemory found.
+# DiceMemory_VERSION_REVISION - The revision version of DiceMemory found.
+# DiceMemory_VERSION_CANDIDATE - The candidate version of DiceMemory found.
+
+message(STATUS "Found DiceMemory-@PROJECT_VERSION@")
+set(DiceMemory_FOUND TRUE)
+
+find_package(<dependency> REQUIRED)
+
+#set(DiceMemory_INCLUDE_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@"
+#    ${<dependency>_INCLUDE_DIRS}
+#    )
+#
+#set(DiceMemory_IDL_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@/idl")
+set(DiceMemory_INCLUDE_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@"
+    ${<dependency>_INCLUDE_DIRS}
+    )
+set(DiceMemory_IDL_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@/idl")
+
+
+if(WIN32)
+    set(DiceMemory_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_STATIC_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+else(WIN32)
+    set(DiceMemory_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_SHARED_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+endif(WIN32)
+
+set(DiceMemory_DEFINITIONS ${<dependency>_DEFINITIONS})
+
+set(DiceMemory_VERSION @PROJECT_VERSION@)
+set(DiceMemory_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(DiceMemory_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(DiceMemory_VERSION_REVISION @PROJECT_VERSION_REVISION@)
+set(DiceMemory_VERSION_CANDIDATE @PROJECT_VERSION_CANDIDATE@)
+

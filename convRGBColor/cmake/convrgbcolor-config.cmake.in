@@ -1,0 +1,54 @@
+# convRGBColor CMake config file
+#
+# This file sets the following variables:
+# convRGBColor_FOUND - Always TRUE.
+# convRGBColor_INCLUDE_DIRS - Directories containing the convRGBColor include files.
+# convRGBColor_IDL_DIRS - Directories containing the convRGBColor IDL files.
+# convRGBColor_LIBRARIES - Libraries needed to use convRGBColor.
+# convRGBColor_DEFINITIONS - Compiler flags for convRGBColor.
+# convRGBColor_VERSION - The version of convRGBColor found.
+# convRGBColor_VERSION_MAJOR - The major version of convRGBColor found.
+# convRGBColor_VERSION_MINOR - The minor version of convRGBColor found.
+# convRGBColor_VERSION_REVISION - The revision version of convRGBColor found.
+# convRGBColor_VERSION_CANDIDATE - The candidate version of convRGBColor found.
+
+message(STATUS "Found convRGBColor-@PROJECT_VERSION@")
+set(convRGBColor_FOUND TRUE)
+
+find_package(<dependency> REQUIRED)
+
+#set(convRGBColor_INCLUDE_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@"
+#    ${<dependency>_INCLUDE_DIRS}
+#    )
+#
+#set(convRGBColor_IDL_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@/idl")
+set(convRGBColor_INCLUDE_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@"
+    ${<dependency>_INCLUDE_DIRS}
+    )
+set(convRGBColor_IDL_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@/idl")
+
+
+if(WIN32)
+    set(convRGBColor_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_STATIC_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+else(WIN32)
+    set(convRGBColor_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_SHARED_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+endif(WIN32)
+
+set(convRGBColor_DEFINITIONS ${<dependency>_DEFINITIONS})
+
+set(convRGBColor_VERSION @PROJECT_VERSION@)
+set(convRGBColor_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(convRGBColor_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(convRGBColor_VERSION_REVISION @PROJECT_VERSION_REVISION@)
+set(convRGBColor_VERSION_CANDIDATE @PROJECT_VERSION_CANDIDATE@)
+

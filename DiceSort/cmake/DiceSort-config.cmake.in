@@ -1,0 +1,54 @@
+# DiceSort CMake config file
+#
+# This file sets the following variables:
+# DiceSort_FOUND - Always TRUE.
+# DiceSort_INCLUDE_DIRS - Directories containing the DiceSort include files.
+# DiceSort_IDL_DIRS - Directories containing the DiceSort IDL files.
+# DiceSort_LIBRARIES - Libraries needed to use DiceSort.
+# DiceSort_DEFINITIONS - Compiler flags for DiceSort.
+# DiceSort_VERSION - The version of DiceSort found.
+# DiceSort_VERSION_MAJOR - The major version of DiceSort found.
+# DiceSort_VERSION_MINOR - The minor version of DiceSort found.
+# DiceSort_VERSION_REVISION - The revision version of DiceSort found.
+# DiceSort_VERSION_CANDIDATE - The candidate version of DiceSort found.
+
+message(STATUS "Found DiceSort-@PROJECT_VERSION@")
+set(DiceSort_FOUND TRUE)
+
+find_package(<dependency> REQUIRED)
+
+#set(DiceSort_INCLUDE_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@"
+#    ${<dependency>_INCLUDE_DIRS}
+#    )
+#
+#set(DiceSort_IDL_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@/idl")
+set(DiceSort_INCLUDE_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@"
+    ${<dependency>_INCLUDE_DIRS}
+    )
+set(DiceSort_IDL_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@/idl")
+
+
+if(WIN32)
+    set(DiceSort_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_STATIC_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+else(WIN32)
+    set(DiceSort_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_SHARED_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+endif(WIN32)
+
+set(DiceSort_DEFINITIONS ${<dependency>_DEFINITIONS})
+
+set(DiceSort_VERSION @PROJECT_VERSION@)
+set(DiceSort_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(DiceSort_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(DiceSort_VERSION_REVISION @PROJECT_VERSION_REVISION@)
+set(DiceSort_VERSION_CANDIDATE @PROJECT_VERSION_CANDIDATE@)
+

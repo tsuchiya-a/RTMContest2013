@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<rtc:RtcProfile rtc:version="0.2" rtc:id="RTC:Ayaka Tsuchiya:Dice:DiceMemory:1.0.0" xmlns:rtcExt="http://www.openrtp.org/namespaces/rtc_ext" xmlns:rtcDoc="http://www.openrtp.org/namespaces/rtc_doc" xmlns:rtc="http://www.openrtp.org/namespaces/rtc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <rtc:BasicInfo xsi:type="rtcExt:basic_info_ext" rtcExt:saveProject="DiceMemory" rtc:updateDate="2013-12-12T22:53:52+09:00" rtc:creationDate="2013-12-12T22:53:52+09:00" rtc:abstract="InPortのDiceNumberから入力されたサイコロの出目の値をConfigurationのDiceStoreで指定された回数記録する。
+記録が完了したら、次にサイコロが静止したとき（＝新たなサイコロの出目がInPortに入力されたとき）に、記録された値をOutPortのRecordedNumberから順に出力する。
+Configurationでは、再生時の時間間隔とループのON/OFFを切り替えることができるTimeIntervalでは出力の時間間隔を指定できる。LoopModeでは再生時のループのON/OFFが切り替えられる。OFF(0)の場合は、記録されたすべての値を出力し終わった後に消灯し、ON(1)の場合は、また初めから出力する。
+ConfigurationのDiceStoreが変更されるか再生時に再び動かされた場合は、記録を最初からやり直す。" rtc:version="1.0.0" rtc:vendor="Ayaka Tsuchiya" rtc:maxInstances="1" rtc:executionType="PeriodicExecutionContext" rtc:executionRate="1000.0" rtc:description="Record input numbers and output them in series after the recording" rtc:category="Dice" rtc:componentKind="DataFlowComponent" rtc:activityType="SPORADIC" rtc:componentType="STATIC" rtc:name="DiceMemory">
+        <rtcDoc:Doc rtcDoc:reference="" rtcDoc:license="" rtcDoc:creator="土屋彩茜&lt;br/&gt;y10157@shibaura-it.ac.jp" rtcDoc:algorithm="" rtcDoc:inout="InPort&lt;br/&gt;ポート名/型/説明&lt;br/&gt;DiceNumber/TimedShort/サイコロの出目。1～6がそれぞれサイコロの目に対応している。0は静止していない時、-1は上面が決定出来ない場合を表す。&lt;br/&gt;OutPort&lt;br/&gt;ポート名/型/説明&lt;br/&gt;RecordedNumber/TimedShort/サイコロの出目。1~6がそれぞれサイコロの目に対応している。記録順に出力される。出力間隔はConfigurationのTimeIntervalで指定される。" rtcDoc:description="InPortのDiceNumberから入力されたサイコロの出目の値をConfigurationのDiceStoreで指定された回数記録する。&lt;br/&gt;記録が完了したら、次にサイコロが静止したとき（＝新たなサイコロの出目がInPortに入力されたとき）に、記録された値をOutPortのRecordedNumberから順に出力する。&lt;br/&gt;Configurationでは、再生時の時間間隔とループのON/OFFを切り替えることができるTimeIntervalでは出力の時間間隔を指定できる。LoopModeでは再生時のループのON/OFFが切り替えられる。OFF(0)の場合は、記録されたすべての値を出力し終わった後に消灯し、ON(1)の場合は、また初めから出力する。&lt;br/&gt;ConfigurationのDiceStoreが変更されるか再生時に再び動かされた場合は、記録を最初からやり直す。"/>
+        <rtcExt:VersionUpLogs></rtcExt:VersionUpLogs>
+    </rtc:BasicInfo>
+    <rtc:Actions>
+        <rtc:OnInitialize xsi:type="rtcDoc:action_status_doc" rtc:implemented="true"/>
+        <rtc:OnFinalize xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnStartup xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnShutdown xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnActivated xsi:type="rtcDoc:action_status_doc" rtc:implemented="true">
+            <rtcDoc:Doc rtcDoc:postCondition="" rtcDoc:preCondition="" rtcDoc:description="初期化を行う。"/>
+        </rtc:OnActivated>
+        <rtc:OnDeactivated xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnAborting xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnError xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnReset xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnExecute xsi:type="rtcDoc:action_status_doc" rtc:implemented="true">
+            <rtcDoc:Doc rtcDoc:postCondition="" rtcDoc:preCondition="" rtcDoc:description="InPortのDiceNumberから入力されたサイコロの出目の値をConfigurationのDiceStoreで指定された回数記録する。&lt;br/&gt;記録が完了したら、次にサイコロが静止したとき（＝新たなサイコロの出目がInPortに入力されたとき）に、記録された値をOutPortのRecordedNumberから順に出力する。&lt;br/&gt;Configurationでは、再生時の時間間隔とループのON/OFFを切り替えることができるTimeIntervalでは出力の時間間隔を指定できる。LoopModeでは再生時のループのON/OFFが切り替えられる。OFF(0)の場合は、記録されたすべての値を出力し終わった後に消灯し、ON(1)の場合は、また初めから出力する。&lt;br/&gt;ConfigurationのDiceStoreが変更されるか再生時に再び動かされた場合は、記録を最初からやり直す。"/>
+        </rtc:OnExecute>
+        <rtc:OnStateUpdate xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnRateChanged xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnAction xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnModeChanged xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+    </rtc:Actions>
+    <rtc:ConfigurationSet>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="s" rtc:defaultValue="2.0" rtc:type="double" rtc:name="TimeInterval">
+            <rtc:Constraint>
+                <rtc:ConstraintUnitType>
+                    <rtc:propertyIsGreaterThanOrEqualTo rtc:matchCase="false">
+                        <rtc:Literal>0</rtc:Literal>
+                    </rtc:propertyIsGreaterThanOrEqualTo>
+                </rtc:ConstraintUnitType>
+            </rtc:Constraint>
+            <rtcDoc:Doc rtcDoc:constraint="x&gt;=0" rtcDoc:range="0以上" rtcDoc:unit="s" rtcDoc:description="出目を出力する際の時間間隔。単位は秒。" rtcDoc:defaultValue="2.0" rtcDoc:dataname="TimeInterval"/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="0" rtc:type="int" rtc:name="LoopMode">
+            <rtc:Constraint>
+                <rtc:ConstraintUnitType>
+                    <rtc:Or>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>0</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>1</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                    </rtc:Or>
+                </rtc:ConstraintUnitType>
+            </rtc:Constraint>
+            <rtcDoc:Doc rtcDoc:constraint="(0,1)" rtcDoc:range="0または1" rtcDoc:unit="" rtcDoc:description="出力がループするかどうかの変更。&lt;br/&gt;1:ON。ループする。&lt;br/&gt;0:OFF。ループしない。" rtcDoc:defaultValue="1" rtcDoc:dataname="LoopMode"/>
+            <rtcExt:Properties rtcExt:value="radio" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="5" rtc:type="int" rtc:name="DiceStore">
+            <rtc:Constraint>
+                <rtc:ConstraintUnitType>
+                    <rtc:propertyIsGreaterThan rtc:matchCase="false">
+                        <rtc:Literal>0</rtc:Literal>
+                    </rtc:propertyIsGreaterThan>
+                </rtc:ConstraintUnitType>
+            </rtc:Constraint>
+            <rtcDoc:Doc rtcDoc:constraint="x&gt;0" rtcDoc:range="自然数" rtcDoc:unit="" rtcDoc:description="出目の記録数。" rtcDoc:defaultValue="5" rtcDoc:dataname="DiceStore"/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+    </rtc:ConfigurationSet>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="LEFT" rtcExt:variableName="" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="RTC::TimedShort" rtc:name="DiceNumber" rtc:portType="DataInPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="" rtcDoc:semantics="" rtcDoc:number="" rtcDoc:type="TimedShort" rtcDoc:description="サイコロの出目。1～6がそれぞれサイコロの目に対応している。0は静止していない時、-1は上面が決定出来ない場合を表す。"/>
+    </rtc:DataPorts>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="RIGHT" rtcExt:variableName="" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="RTC::TimedShort" rtc:name="RecordedNumber" rtc:portType="DataOutPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="" rtcDoc:semantics="" rtcDoc:number="" rtcDoc:type="TimedShort" rtcDoc:description="サイコロの出目。1~6がそれぞれサイコロの目に対応している。記録順に出力される。出力間隔はConfigurationのTimeIntervalで指定される。"/>
+    </rtc:DataPorts>
+    <rtc:Language xsi:type="rtcExt:language_ext" rtc:kind="C++"/>
+</rtc:RtcProfile>
