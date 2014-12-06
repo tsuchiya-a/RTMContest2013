@@ -106,8 +106,8 @@ The available configuration parameters are described below:
 ================ ================== ================ ======
 Parameter        Data type          Default Value    Effect
 ================ ================== ================ ======
-InPortSelect     string             TimedShortSeqIn  InPortの型を選択する。
-OutPortSelect    string             TimedRGBColourOut 出力ポートの型を選択する。
+InPortSelect     string             TimedRGBColourIn InPortの型を選択する。
+OutPortSelect    string             TimedLongSeqOut  出力ポートの型を選択する。
 MaxData          double             255              入力データの最大値を指定する。<br/>これを超えた入力は最大値と等しいとみなす。
 MinData          double             0                入力データの最小値を指定する。<br/>これより小さい入力は最小値と等しいとみなす。
 ================ ================== ================ ======
@@ -122,10 +122,11 @@ Name            Type        Data type                      Purpose
 =============== =========== ============================== =======
 TimedDoubleSeqIn InPort      RTC::TimedDoubleSeq            TimedDoubleSeq型のデータを取得するポート。<br/>配列の要素は0~2の前3つを利用し、足りない場合は0で補填する。
 TimedShortSeqIn InPort      RTC::TimedShortSeq             TimedShortSeq型のデータを取得するポート。<br/>配列の要素は0~2の前3つを利用し、足りない場合は0で補填する。
-TimedRGBColourIn InPort      RTC::TimedRGBColour            TimedRGBColour型のデータを取得するポート。<br/>配列の要素は0~2の前3つを利用し、足りない場合は0で補填する。
+TimedRGBColourIn InPort      RTC::TimedRGBColour            TimedRGBColour型のデータを取得するポート。
 TimedDoubleSeqOut OutPort     RTC::TimedDoubleSeq            TimedDoubleSeq型のデータを出力するポート。<br/>配列の要素は0~2の前3つを利用し、足りない場合は0で補填する。
 TimedShortSeqOut OutPort     RTC::TimedShortSeq             TimedShortSeq型のデータを出力するポート。<br/>配列の要素は0~2の前3つを利用し、足りない場合は0で補填する。
-TimedRGBColourOut OutPort     RTC::TimedRGBColour            TimedRGBColour型のデータを出力するポート。<br/>配列の要素は0~2の前3つを利用し、足りない場合は0で補填する。
+TimedRGBColourOut OutPort     RTC::TimedRGBColour            TimedRGBColour型のデータを出力するポート。
+TimedLongSeqOut OutPort     RTC::TimedLongSeq              TimeLongSeq型のデータを出力するポート。<br/>配列の要素は0~2の前3つを利用し、足りない場合は0で補填する。
 =============== =========== ============================== =======
 
 Examples

@@ -25,7 +25,7 @@ static const char* convrgbcolor_spec[] =
     "implementation_id", "convRGBColor",
     "type_name",         "convRGBColor",
     "description",       "convert to RGBColor",
-    "version",           "1.0.2",
+    "version",           "1.1.0",
     "vendor",            "Ayaka Tsuchiya",
     "category",          "tool",
     "activity_type",     "PERIODIC",
@@ -34,7 +34,7 @@ static const char* convrgbcolor_spec[] =
     "language",          "C++",
     "lang_type",         "compile",
     // Configuration variables
-    "conf.default.InPortSelect", "TimedRGBColourSeqIn",
+    "conf.default.InPortSelect", "TimedRGBColourIn",
     "conf.default.OutPortSelect", "TimedLongSeqOut",
     "conf.default.MaxData", "255",
     "conf.default.MinData", "0",
@@ -45,7 +45,7 @@ static const char* convrgbcolor_spec[] =
     "conf.__widget__.MinData", "text",
     // Constraints
     "conf.__constraints__.InPortSelect", "(TimedDoubleSeqIn,TimedShortSeqIn,TimedRGBColourIn)",
-    "conf.__constraints__.OutPortSelect", "(TimedLongSeqOut,TimedDoubleSeqOut,TimedShortSeqOut,TimedRGBColourOut)",
+    "conf.__constraints__.OutPortSelect", "(TimedDoubleSeqOut,TimedShortSeqOut,TimedRGBColourOut,TimedLongSeqOut)",
     ""
   };
 // </rtc-template>
@@ -63,7 +63,7 @@ convRGBColor::convRGBColor(RTC::Manager* manager)
     m_TimedDoubleSeqOutOut("TimedDoubleSeqOut", m_TimedDoubleSeqOut),
     m_TimedShortSeqOutOut("TimedShortSeqOut", m_TimedShortSeqOut),
     m_TimedRGBColourOutOut("TimedRGBColourOut", m_TimedRGBColourOut),
-	m_TimedLongSeqOutOut("TimedLongSeqOut", m_TimedLongSeqOut)
+    m_TimedLongSeqOutOut("TimedLongSeqOut", m_TimedLongSeqOut)
 
     // </rtc-template>
 {
@@ -92,7 +92,7 @@ RTC::ReturnCode_t convRGBColor::onInitialize()
   addOutPort("TimedShortSeqOut", m_TimedShortSeqOutOut);
   addOutPort("TimedRGBColourOut", m_TimedRGBColourOutOut);
   addOutPort("TimedLongSeqOut", m_TimedLongSeqOutOut);
-
+  
   // Set service provider to Ports
   
   // Set service consumers to Ports
@@ -103,7 +103,7 @@ RTC::ReturnCode_t convRGBColor::onInitialize()
 
   // <rtc-template block="bind_config">
   // Bind variables and configuration variable
-  bindParameter("InPortSelect", m_InPortSelect, "TimedRGBColourSeqIn");
+  bindParameter("InPortSelect", m_InPortSelect, "TimedRGBColourIn");
   bindParameter("OutPortSelect", m_OutPortSelect, "TimedLongSeqOut");
   bindParameter("MaxData", m_MaxData, "255");
   bindParameter("MinData", m_MinData, "0");
@@ -153,24 +153,24 @@ RTC::ReturnCode_t convRGBColor::onActivated(RTC::UniqueId ec_id)
 RTC::ReturnCode_t convRGBColor::onDeactivated(RTC::UniqueId ec_id)
 {
   for(int i=0;i<3;i++){
-	  m_TimedLongSeqOut.data[i]=0;
-  }
-  m_TimedLongSeqOutOut.write();
-
-  for(int i=0;i<3;i++){
 	  m_TimedDoubleSeqOut.data[i]=0;
   }
-  m_TimedDoubleSeqOutOut.write();
+  m_TimedDoubleSeqOutOut.write(); //TimedDoubleSeqOutからRGB(0,0,0)を出力
 
   for(int i=0;i<3;i++){
 	  m_TimedShortSeqOut.data[i]=0;
   }
-  m_TimedShortSeqOutOut.write();
+  m_TimedShortSeqOutOut.write(); //TimedShortSeqOutからRGB(0,0,0)を出力
+
+  for(int i=0;i<3;i++){
+	  m_TimedLongSeqOut.data[i]=0;
+  }
+  m_TimedLongSeqOutOut.write(); //TimedLongSeqOutからRGB(0,0,0)を出力
 
   m_TimedRGBColourOut.data.r=0;
   m_TimedRGBColourOut.data.g=0;
   m_TimedRGBColourOut.data.b=0;
-  m_TimedRGBColourOutOut.write();
+  m_TimedRGBColourOutOut.write(); //TimedRGBColourOutからRGB(0,0,0)を出力
   return RTC::RTC_OK;
 }
 
@@ -211,15 +211,7 @@ RTC::ReturnCode_t convRGBColor::onExecute(RTC::UniqueId ec_id)
   }
 
   if(input){
-	std::cout<<"R="<<color_data[0]<<" G="<<color_data[1]<<" B="<<color_data[2]<<std::endl;
-	if(m_OutPortSelect=="TimedLongSeqOut"){
-		m_TimedLongSeqOut.data.length(3);
-		m_TimedLongSeqOut.data[0]=color_data[0];
-		m_TimedLongSeqOut.data[1]=color_data[1];
-		m_TimedLongSeqOut.data[2]=color_data[2];
-		m_TimedLongSeqOutOut.write();
-	}
-	else if(m_OutPortSelect=="TimedDoubleSeqOut"){
+	if(m_OutPortSelect=="TimedDoubleSeqOut"){
 		m_TimedDoubleSeqOut.data.length(3);
 		m_TimedDoubleSeqOut.data[0]=color_data[0];
 		m_TimedDoubleSeqOut.data[1]=color_data[1];
@@ -239,6 +231,15 @@ RTC::ReturnCode_t convRGBColor::onExecute(RTC::UniqueId ec_id)
 		m_TimedRGBColourOut.data.b=color_data[2];
 		m_TimedRGBColourOutOut.write();
 	}
+	else if(m_OutPortSelect=="TimedLongSeqOut"){
+		m_TimedLongSeqOut.data.length(3);
+		m_TimedLongSeqOut.data[0]=color_data[0];
+		m_TimedLongSeqOut.data[1]=color_data[1];
+		m_TimedLongSeqOut.data[2]=color_data[2];
+		m_TimedLongSeqOutOut.write();
+	}
+	std::cout<<"InPort:"<<m_InPortSelect<<"->OutPort:"<<m_OutPortSelect<<std::endl;
+	std::cout<<"R="<<color_data[0]<<" ,G="<<color_data[1]<<" ,B="<<color_data[2]<<std::endl<<std::endl;
 	color_data.clear();
 	input=false;
   }
@@ -259,14 +260,12 @@ RTC::ReturnCode_t convRGBColor::onError(RTC::UniqueId ec_id)
 }
 */
 
-/*!
- * 終了処理を行う。
- */
-
+/*
 RTC::ReturnCode_t convRGBColor::onReset(RTC::UniqueId ec_id)
 {
   return RTC::RTC_OK;
 }
+*/
 
 /*
 RTC::ReturnCode_t convRGBColor::onStateUpdate(RTC::UniqueId ec_id)
@@ -286,6 +285,7 @@ RTC::ReturnCode_t convRGBColor::onRateChanged(RTC::UniqueId ec_id)
 double convRGB(int data,double MaxData,double MinData){
   double color;
 
+  // MinData～MaxDataの範囲外のデータをMinDataかMaxDataと同値にする
   if(MaxData<MinData){
 	if(data>MinData) data=MinData;
 	else if(data<MaxData) data=MaxData;
@@ -301,6 +301,7 @@ double convRGB(int data,double MaxData,double MinData){
 double convRGB(double data,double MaxData,double MinData){
   double color;
 
+  // MinData～MaxDataの範囲外のデータをMinDataかMaxDataと同値にする
   if(MaxData<MinData){
 	if(data>MinData) data=MinData;
 	else if(data<MaxData) data=MaxData;
@@ -313,7 +314,6 @@ double convRGB(double data,double MaxData,double MinData){
   color=(data-MinData)*255/(MaxData-MinData);
   return color;
 }
-
 
 extern "C"
 {

@@ -40,8 +40,8 @@ using namespace RTC;
  *
  * TimedDoubleSeq,TimedShortSeq,TimedRGBColourのいずれかで入力され
  * たデータをTimedDoubleSeq
- * ,TimedShortSeq,TimedRGBColourのいずれかに変換し出力するコンポー
- * ネント。
+ * ,TimedShortSeq,TimedRGBColour,TimedLongSeqのいずれかに変換し出力
+ * するコンポーネント。
  * Configuration値で入力データの範囲を指定すると、0~255の範囲のデー
  * タとして出力される。
  *
@@ -53,8 +53,7 @@ using namespace RTC;
  * ポート。配列の要素は0~2の前3つを利用し、足りない場合は0で補填す
  * る。
  * TimedRGBColourIn/TimedRGBColour/TimedRGBColour型のデータを取得す
- * るポート。配列の要素は0~2の前3つを利用し、足りない場合は0で補填
- * する。
+ * るポート。
  * OutPort: <name>/<datatype>/<documentation>
  * TimedDoubleSeqOut/TimedDoubleSeq/TimedDoubleSeq型のデータを出力
  * するポート。配列の要素は0~2の前3つを利用し、足りない場合は0で補
@@ -63,14 +62,15 @@ using namespace RTC;
  * ポート。配列の要素は0~2の前3つを利用し、足りない場合は0で補填す
  * る。
  * TimedRGBColourOut/TimedRGBColour/TimedRGBColour型のデータを出力
- * するポート。配列の要素は0~2の前3つを利用し、足りない場合は0で補
- * 填する。
+ * するポート。TimedLongSeqOut/TimedLongSeq/TimedLongSeq型のデータ
+ * を出力するポート。配列の要素は0~2の前3つを利用し、足りない場合は
+ * 0で補填する。
  * Configuration:<name>/<datatype>/<default>
  * /<widget>/<documentation>
- * InPortSelect/string/TimeShortSeqIn/radio/入力ポートの型を選択す
- * る。
- * OutPortSelect/string/TimedRGBColourOut/radio/出力ポートの型を選
- * 択する。
+ * InPortSelect/string/ TimedRGBColourIn
+ * /radio/入力ポートの型を選択する。
+ * OutPortSelect/string/TimedLongSeqOut/radio/出力ポートの型を選択
+ * する。
  * MaxData/double/255/text/入力データの最大値を指定する。これを超え
  * た入力は最大値と等しいとみなす。
  * MinData/double/0/text/入力データの最小値を指定する。これより小さ
@@ -217,7 +217,6 @@ class convRGBColor
   // virtual RTC::ReturnCode_t onError(RTC::UniqueId ec_id);
 
   /***
-   * 終了処理を行う。
    *
    * The reset action that is invoked resetting
    * This is same but different the former rtc_init_entry()
@@ -228,7 +227,7 @@ class convRGBColor
    * 
    * 
    */
-   virtual RTC::ReturnCode_t onReset(RTC::UniqueId ec_id);
+  // virtual RTC::ReturnCode_t onReset(RTC::UniqueId ec_id);
   
   /***
    *
@@ -271,13 +270,13 @@ class convRGBColor
   /*!
    * InPortの型を選択する。
    * - Name: InPortSelect InPortSelect
-   * - DefaultValue: TimedShortSeqIn
+   * - DefaultValue: TimedRGBColourIn
    */
   std::string m_InPortSelect;
   /*!
    * 出力ポートの型を選択する。
    * - Name: OutPortSelect OutPortSelect
-   * - DefaultValue: TimedRGBColourOut
+   * - DefaultValue: TimedLongSeqOut
    */
   std::string m_OutPortSelect;
   /*!
@@ -316,7 +315,6 @@ class convRGBColor
   RTC::TimedRGBColour m_TimedRGBColourIn;
   /*!
    * TimedRGBColour型のデータを取得するポート。
-   * 配列の要素は0~2の前3つを利用し、足りない場合は0で補填する。
    * - Type: TimedRGBColour
    */
   InPort<RTC::TimedRGBColour> m_TimedRGBColourInIn;
@@ -343,17 +341,17 @@ class convRGBColor
   RTC::TimedRGBColour m_TimedRGBColourOut;
   /*!
    * TimedRGBColour型のデータを出力するポート。
-   * 配列の要素は0~2の前3つを利用し、足りない場合は0で補填する。
    * - Type: TimedRGBColour
    */
   OutPort<RTC::TimedRGBColour> m_TimedRGBColourOutOut;
   RTC::TimedLongSeq m_TimedLongSeqOut;
   /*!
-   * TimedRGBColour型のデータを出力するポート。
+   * TimeLongSeq型のデータを出力するポート。
    * 配列の要素は0~2の前3つを利用し、足りない場合は0で補填する。
-   * - Type: TimedRGBColour
+   * - Type: TimedLongSeq
    */
   OutPort<RTC::TimedLongSeq> m_TimedLongSeqOutOut;
+  
   // </rtc-template>
 
   // CORBA Port declaration

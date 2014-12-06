@@ -372,7 +372,8 @@ class Calibration_forAcceleration3D
 
  private:
   // <rtc-template block="private_attribute">
-  
+  bool input;
+
   // </rtc-template>
 
   // <rtc-template block="private_operation">

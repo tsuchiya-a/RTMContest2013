@@ -149,6 +149,7 @@ RTC::ReturnCode_t Calibration_forAcceleration3D::onActivated(RTC::UniqueId ec_id
 {
   while(m_Acceleration3DInIn.isNew()) m_Acceleration3DInIn.read();
   while(m_TimedDoubleSeqInIn.isNew()) m_TimedDoubleSeqInIn.read();
+  input=false;
   return RTC::RTC_OK;
 }
 
@@ -169,65 +170,53 @@ RTC::ReturnCode_t Calibration_forAcceleration3D::onExecute(RTC::UniqueId ec_id)
 {
   double x,y,z;
   std::vector<double> data;
+
   if(m_InPortSelect=="Acceleration3DIn"){
 	if(m_Acceleration3DInIn.isNew()){
 		m_Acceleration3DInIn.read();
-		std::cout<<"------start------"<<std::endl;
-		std::cout<<"ax="<<m_Acceleration3DIn.data.ax<<"ay="<<m_Acceleration3DIn.data.ay<<"az="<<m_Acceleration3DIn.data.az<<std::endl;
+		std::cout<<"raw data:ax="<<m_Acceleration3DIn.data.ax<<" ,ay="<<m_Acceleration3DIn.data.ay<<" ,az="<<m_Acceleration3DIn.data.az<<std::endl;
 		x=m_params_x[0]*m_Acceleration3DIn.data.ax+m_params_x[1];
 		y=m_params_y[0]*m_Acceleration3DIn.data.ay+m_params_y[1];
 		z=m_params_z[0]*m_Acceleration3DIn.data.az+m_params_z[1];
-		data=rotation(x,y,z,m_params_theta,m_params_psi,m_params_phi);
-		if(m_OutPortSelect=="Acceleration3DOut"){
-			m_Acceleration3DOut.data.ax=data[0];
-			m_Acceleration3DOut.data.ay=data[1];
-			m_Acceleration3DOut.data.az=data[2];
-			std::cout<<"ax="<<m_Acceleration3DOut.data.ax<<"ay="<<m_Acceleration3DOut.data.ay<<"az="<<m_Acceleration3DOut.data.az<<std::endl;
-			m_Acceleration3DOutOut.write();
-		}
-		else if(m_OutPortSelect=="TimedDoubleSeqOut"){
-			m_TimedDoubleSeqOut.data.length(3);
-			m_TimedDoubleSeqOut.data[0]=data[0];
-			m_TimedDoubleSeqOut.data[1]=data[1];
-			m_TimedDoubleSeqOut.data[2]=data[2];
-			std::cout<<"ax="<<m_TimedDoubleSeqOut.data[0]<<"ay="<<m_TimedDoubleSeqOut.data[1]<<"az="<<m_TimedDoubleSeqOut.data[2]<<std::endl;
-			m_TimedDoubleSeqOutOut.write();
-		}
-	data.clear();
-	std::cout<<"------end------"<<std::endl;
+		input=true;
 	}
   }
   else if(m_InPortSelect=="TimedDoubleSeqIn"){
 	if(m_TimedDoubleSeqInIn.isNew()){
 		m_TimedDoubleSeqInIn.read();
 		if(m_TimedDoubleSeqIn.data.length()==3){
-			std::cout<<"------start------"<<std::endl;
-			std::cout<<"ax="<<m_TimedDoubleSeqIn.data[0]<<"ay="<<m_TimedDoubleSeqIn.data[1]<<"az="<<m_TimedDoubleSeqIn.data[2]<<std::endl;
+			std::cout<<"raw data:ax="<<m_TimedDoubleSeqIn.data[0]<<" ,ay="<<m_TimedDoubleSeqIn.data[1]<<" ,az="<<m_TimedDoubleSeqIn.data[2]<<std::endl;
 			x=m_params_x[0]*m_TimedDoubleSeqIn.data[0]+m_params_x[1];
 			y=m_params_y[0]*m_TimedDoubleSeqIn.data[1]+m_params_y[1];
 			z=m_params_z[0]*m_TimedDoubleSeqIn.data[2]+m_params_z[1];
-			data=rotation(x,y,z,m_params_theta,m_params_psi,m_params_phi);
+			input=true;
 		}
 		else std::cerr<<"Invalid data length (m_TimedDoubleSeqIn): "<< m_TimedDoubleSeqIn.data.length() <<std::endl;
-		if(m_OutPortSelect=="Acceleration3DOut"){
-			m_Acceleration3DOut.data.ax=data[0];
-			m_Acceleration3DOut.data.ay=data[1];
-			m_Acceleration3DOut.data.az=data[2];
-			std::cout<<"ax="<<m_Acceleration3DOut.data.ax<<"ay="<<m_Acceleration3DOut.data.ay<<"az="<<m_Acceleration3DOut.data.az<<std::endl;
-			m_Acceleration3DOutOut.write();
-		}
-		else if(m_OutPortSelect=="TimedDoubleSeqOut"){
-			m_TimedDoubleSeqOut.data.length(3);
-			m_TimedDoubleSeqOut.data[0]=data[0];
-			m_TimedDoubleSeqOut.data[1]=data[1];
-			m_TimedDoubleSeqOut.data[2]=data[2];
-			std::cout<<"ax="<<m_TimedDoubleSeqOut.data[0]<<"ay="<<m_TimedDoubleSeqOut.data[1]<<"az="<<m_TimedDoubleSeqOut.data[2]<<std::endl;
-			m_TimedDoubleSeqOutOut.write();
-		}
-	data.clear();
-	std::cout<<"------end------"<<std::endl;
 	}
-  } 
+  }
+
+  if(input){
+	std::cout<<"calibration data:ax="<<x<<" ,ay="<<y<<" ,az="<<z<<std::endl;
+	data=rotation(x,y,z,m_params_theta,m_params_psi,m_params_phi);
+	if(m_OutPortSelect=="Acceleration3DOut"){
+		m_Acceleration3DOut.data.ax=data[0];
+		m_Acceleration3DOut.data.ay=data[1];
+		m_Acceleration3DOut.data.az=data[2];
+		std::cout<<"rotation data:ax="<<m_Acceleration3DOut.data.ax<<" ,ay="<<m_Acceleration3DOut.data.ay<<" ,az="<<m_Acceleration3DOut.data.az<<std::endl<<std::endl;
+		m_Acceleration3DOutOut.write();
+	}
+	else if(m_OutPortSelect=="TimedDoubleSeqOut"){
+		m_TimedDoubleSeqOut.data.length(3);
+		m_TimedDoubleSeqOut.data[0]=data[0];
+		m_TimedDoubleSeqOut.data[1]=data[1];
+		m_TimedDoubleSeqOut.data[2]=data[2];
+		std::cout<<"rotation data:ax="<<m_TimedDoubleSeqOut.data[0]<<" ,ay="<<m_TimedDoubleSeqOut.data[1]<<" ,az="<<m_TimedDoubleSeqOut.data[2]<<std::endl<<std::endl;
+		m_TimedDoubleSeqOutOut.write();
+	}
+	data.clear();
+	input=false;
+  }
+
   return RTC::RTC_OK;
 }
 
@@ -274,8 +263,9 @@ std::vector<double> rotation(double x,double y,double z,double theta,double psi,
   cv::Mat y_rotation=(cv::Mat_<double>(3,3) << std::cos(std::fabs(psi)*(180/3.141592)),0,-(std::sin(std::fabs(psi)*(180/3.141592))),0,1,0,std::sin(std::fabs(psi)*(180/3.141592)),0,std::cos(std::fabs(psi)*(180/3.141592)));
   cv::Mat z_rotation=(cv::Mat_<double>(3,3) << std::cos(std::fabs(phi)*(180/3.141592)),std::sin(std::fabs(phi)*(180/3.141592)),0,-(std::sin(std::fabs(phi)*(180/3.141592))),std::cos(std::fabs(phi)*(180/3.141592)),0,0,0,1);
 
-  cv::Mat new_data=x_rotation*y_rotation*z_rotation*prev_data;
-  std::cout<<"data="<<new_data<<std::endl<<std::endl;
+  cv::Mat new_data=z_rotation*y_rotation*x_rotation*prev_data;
+  std::cout<<"--->rotation:theta="<<theta<<" ,psi="<<psi<<" ,phi="<<phi<<std::endl;
+//  std::cout<<"data="<<new_data<<std::endl<<std::endl;
 
   std::vector<double> data;
   data.push_back(new_data.at<double>(0,0));

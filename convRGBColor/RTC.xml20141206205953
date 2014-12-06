@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<rtc:RtcProfile rtc:version="0.2" rtc:id="RTC:Ayaka Tsuchiya:tool:convRGBColor:1.0.1" xmlns:rtcExt="http://www.openrtp.org/namespaces/rtc_ext" xmlns:rtcDoc="http://www.openrtp.org/namespaces/rtc_doc" xmlns:rtc="http://www.openrtp.org/namespaces/rtc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <rtc:BasicInfo xsi:type="rtcExt:basic_info_ext" rtcExt:saveProject="convRGBColor" rtc:updateDate="2014-11-29T11:16:34+09:00" rtc:creationDate="2014-11-29T11:16:34+09:00" rtc:abstract="TimedDoubleSeq,TimedShortSeq,TimedRGBColourのいずれかで入力されたデータをTimedShortSeq,TimedRGBColourのどちらかに変換し出力するコンポーネント。 Configuration値で入力データの範囲を指定すると、0~255の範囲のデータとして出力される。" rtc:version="1.0.1" rtc:vendor="Ayaka Tsuchiya" rtc:maxInstances="1" rtc:executionType="PeriodicExecutionContext" rtc:executionRate="1000.0" rtc:description="convert to RGBColor" rtc:category="tool" rtc:componentKind="DataFlowComponent" rtc:activityType="PERIODIC" rtc:componentType="COMMUTATIVE" rtc:name="convRGBColor">
-        <rtcDoc:Doc rtcDoc:reference="" rtcDoc:license="" rtcDoc:creator="土屋彩茜&lt;br/&gt;ma14076@shibaura-it.ac.jp" rtcDoc:algorithm="" rtcDoc:inout="InPort:&lt;name&gt;/&lt;datatype&gt;/&lt;documentation&gt;&lt;br/&gt;TimedDoubleSeqIn/TimedDoubleSeq/TimedDoubleSeq型のデータを取得するポート。配列の要素は0~2の前3つを利用し、足りない場合は0で補填する。&lt;br/&gt;TimedShortSeqIn/TimedShortSeq/TimedShortSeq型のデータを取得するポート。配列の要素は0~2の前3つを利用し、足りない場合は0で補填する。&lt;br/&gt;TimedRGBColourIn/TimedRGBColour/TimedRGBColour型のデータを取得するポート。配列の要素は0~2の前3つを利用し、足りない場合は0で補填する。&lt;br/&gt;&lt;br/&gt;OutPort: &lt;name&gt;/&lt;datatype&gt;/&lt;documentation&gt;&lt;br/&gt;TimedShortSeqOut/TimedShortSeq/TimedShortSeq型のデータを出力するポート。配列の要素は0~2の前3つを利用し、足りない場合は0で補填する。&lt;br/&gt;TimedRGBColourOut/TimedRGBColour/TimedRGBColour型のデータを出力するポート。配列の要素は0~2の前3つを利用し、足りない場合は0で補填する。&lt;br/&gt;&lt;br/&gt;Configuration:&lt;name&gt;/&lt;datatype&gt;/&lt; default&gt;/&lt;widget&gt;/&lt;documentation&gt;&lt;br/&gt;InPortSelect/string/TimeShortSeqIn/radio/入力ポートの型を選択する。&lt;br/&gt;OutPortSelect/string/TimedRGBColourOut/radio/出力ポートの型を選択する。&lt;br/&gt;MaxData/double/255/text/入力データの最大値を指定する。これを超えた入力は最大値と等しいとみなす。&lt;br/&gt;MinData/double/0/text/入力データの最小値を指定する。これより小さい入力は最小値と等しいとみなす。" rtcDoc:description="TimedDoubleSeq,TimedShortSeq,TimedRGBColourのいずれかで入力されたデータをTimedShortSeq,TimedRGBColourのどちらかに変換し出力するコンポーネント。&lt;br/&gt;Configuration値で入力データの範囲を指定すると、0~255の範囲のデータとして出力される。"/>
+<rtc:RtcProfile rtc:version="0.2" rtc:id="RTC:Ayaka Tsuchiya:tool:convRGBColor:1.1.0" xmlns:rtcExt="http://www.openrtp.org/namespaces/rtc_ext" xmlns:rtcDoc="http://www.openrtp.org/namespaces/rtc_doc" xmlns:rtc="http://www.openrtp.org/namespaces/rtc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <rtc:BasicInfo xsi:type="rtcExt:basic_info_ext" rtcExt:saveProject="convRGB" rtc:updateDate="2014-11-29T11:16:34+09:00" rtc:creationDate="2014-11-29T11:16:34+09:00" rtc:abstract="TimedDoubleSeq,TimedShortSeq,TimedRGBColourのいずれかで入力されたデータをTimedDoubleSeq ,TimedShortSeq,TimedRGBColour,TimedLongSeqのいずれかに変換し出力するコンポーネント。 Configuration値で入力データの範囲を指定すると、0~255の範囲のデータとして出力される。 " rtc:version="1.1.0" rtc:vendor="Ayaka Tsuchiya" rtc:maxInstances="1" rtc:executionType="PeriodicExecutionContext" rtc:executionRate="1000.0" rtc:description="convert to RGBColor" rtc:category="tool" rtc:componentKind="DataFlowComponent" rtc:activityType="PERIODIC" rtc:componentType="COMMUTATIVE" rtc:name="convRGBColor">
+        <rtcDoc:Doc rtcDoc:reference="" rtcDoc:license="" rtcDoc:creator="土屋彩茜&lt;br/&gt;ma14076@shibaura-it.ac.jp" rtcDoc:algorithm="" rtcDoc:inout="InPort:&lt;name&gt;/&lt;datatype&gt;/&lt;documentation&gt;&lt;br/&gt;TimedDoubleSeqIn/TimedDoubleSeq/TimedDoubleSeq型のデータを取得するポート。配列の要素は0~2の前3つを利用し、足りない場合は0で補填する。&lt;br/&gt;TimedShortSeqIn/TimedShortSeq/TimedShortSeq型のデータを取得するポート。配列の要素は0~2の前3つを利用し、足りない場合は0で補填する。&lt;br/&gt;TimedRGBColourIn/TimedRGBColour/TimedRGBColour型のデータを取得するポート。&lt;br/&gt;&lt;br/&gt;OutPort: &lt;name&gt;/&lt;datatype&gt;/&lt;documentation&gt;&lt;br/&gt;TimedDoubleSeqOut/TimedDoubleSeq/TimedDoubleSeq型のデータを出力するポート。配列の要素は0~2の前3つを利用し、足りない場合は0で補填する。&lt;br/&gt;TimedShortSeqOut/TimedShortSeq/TimedShortSeq型のデータを出力するポート。配列の要素は0~2の前3つを利用し、足りない場合は0で補填する。&lt;br/&gt;TimedRGBColourOut/TimedRGBColour/TimedRGBColour型のデータを出力するポート。TimedLongSeqOut/TimedLongSeq/TimedLongSeq型のデータを出力するポート。配列の要素は0~2の前3つを利用し、足りない場合は0で補填する。&lt;br/&gt;&lt;br/&gt;Configuration:&lt;name&gt;/&lt;datatype&gt;/&lt; default&gt;/&lt;widget&gt;/&lt;documentation&gt;&lt;br/&gt;InPortSelect/string/ TimedRGBColourIn /radio/入力ポートの型を選択する。&lt;br/&gt;OutPortSelect/string/TimedLongSeqOut/radio/出力ポートの型を選択する。&lt;br/&gt;MaxData/double/255/text/入力データの最大値を指定する。これを超えた入力は最大値と等しいとみなす。&lt;br/&gt;MinData/double/0/text/入力データの最小値を指定する。これより小さい入力は最小値と等しいとみなす。" rtcDoc:description="TimedDoubleSeq,TimedShortSeq,TimedRGBColourのいずれかで入力されたデータをTimedDoubleSeq ,TimedShortSeq,TimedRGBColour,TimedLongSeqのいずれかに変換し出力するコンポーネント。&lt;br/&gt;Configuration値で入力データの範囲を指定すると、0~255の範囲のデータとして出力される。"/>
+        <rtcExt:VersionUpLogs></rtcExt:VersionUpLogs>
+        <rtcExt:VersionUpLogs></rtcExt:VersionUpLogs>
         <rtcExt:VersionUpLogs></rtcExt:VersionUpLogs>
         <rtcExt:VersionUpLogs></rtcExt:VersionUpLogs>
     </rtc:BasicInfo>
@@ -18,9 +20,7 @@
         </rtc:OnDeactivated>
         <rtc:OnAborting xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
         <rtc:OnError xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
-        <rtc:OnReset xsi:type="rtcDoc:action_status_doc" rtc:implemented="true">
-            <rtcDoc:Doc rtcDoc:postCondition="" rtcDoc:preCondition="" rtcDoc:description="終了処理を行う。"/>
-        </rtc:OnReset>
+        <rtc:OnReset xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
         <rtc:OnExecute xsi:type="rtcDoc:action_status_doc" rtc:implemented="true">
             <rtcDoc:Doc rtcDoc:postCondition="" rtcDoc:preCondition="" rtcDoc:description="0~255の範囲にデータを変換し、RGB値の出力を行う。"/>
         </rtc:OnExecute>
@@ -37,6 +37,13 @@
                         <rtc:Constraint>
                             <rtc:ConstraintUnitType>
                                 <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>TimedDoubleSeqIn</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
                                     <rtc:Literal>TimedShortSeqIn</rtc:Literal>
                                 </rtc:propertyIsEqualTo>
                             </rtc:ConstraintUnitType>
@@ -44,7 +51,7 @@
                         <rtc:Constraint>
                             <rtc:ConstraintUnitType>
                                 <rtc:propertyIsEqualTo rtc:matchCase="false">
-                                    <rtc:Literal>TimedDoubleSeqIn</rtc:Literal>
+                                    <rtc:Literal>TimedRGBColourIn</rtc:Literal>
                                 </rtc:propertyIsEqualTo>
                             </rtc:ConstraintUnitType>
                         </rtc:Constraint>
@@ -61,6 +68,13 @@
                         <rtc:Constraint>
                             <rtc:ConstraintUnitType>
                                 <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>TimedDoubleSeqOut</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
                                     <rtc:Literal>TimedShortSeqOut</rtc:Literal>
                                 </rtc:propertyIsEqualTo>
                             </rtc:ConstraintUnitType>
@@ -69,6 +83,13 @@
                             <rtc:ConstraintUnitType>
                                 <rtc:propertyIsEqualTo rtc:matchCase="false">
                                     <rtc:Literal>TimedRGBColourOut</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>TimedLongSeqOut</rtc:Literal>
                                 </rtc:propertyIsEqualTo>
                             </rtc:ConstraintUnitType>
                         </rtc:Constraint>
@@ -94,13 +115,19 @@
         <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="" rtcDoc:semantics="" rtcDoc:number="" rtcDoc:type="TimeShortSeq" rtcDoc:description="TimedShortSeq型のデータを取得するポート。&lt;br/&gt;配列の要素は0~2の前3つを利用し、足りない場合は0で補填する。"/>
     </rtc:DataPorts>
     <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="LEFT" rtcExt:variableName="" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="RTC::TimedRGBColour" rtc:name="TimedRGBColourIn" rtc:portType="DataInPort">
-        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="" rtcDoc:semantics="" rtcDoc:number="" rtcDoc:type="TimedRGBColour" rtcDoc:description="TimedRGBColour型のデータを取得するポート。&lt;br/&gt;配列の要素は0~2の前3つを利用し、足りない場合は0で補填する。"/>
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="" rtcDoc:semantics="" rtcDoc:number="" rtcDoc:type="TimedRGBColour" rtcDoc:description="TimedRGBColour型のデータを取得するポート。"/>
+    </rtc:DataPorts>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="RIGHT" rtcExt:variableName="" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="RTC::TimedDoubleSeq" rtc:name="TimedDoubleSeqOut" rtc:portType="DataOutPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="" rtcDoc:semantics="" rtcDoc:number="" rtcDoc:type="TimedDoubleSeq" rtcDoc:description="TimedDoubleSeq型のデータを出力するポート。&lt;br/&gt;配列の要素は0~2の前3つを利用し、足りない場合は0で補填する。"/>
     </rtc:DataPorts>
     <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="RIGHT" rtcExt:variableName="" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="RTC::TimedShortSeq" rtc:name="TimedShortSeqOut" rtc:portType="DataOutPort">
         <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="" rtcDoc:semantics="" rtcDoc:number="" rtcDoc:type="TimedShortSeq" rtcDoc:description="TimedShortSeq型のデータを出力するポート。&lt;br/&gt;配列の要素は0~2の前3つを利用し、足りない場合は0で補填する。"/>
     </rtc:DataPorts>
     <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="RIGHT" rtcExt:variableName="" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="RTC::TimedRGBColour" rtc:name="TimedRGBColourOut" rtc:portType="DataOutPort">
-        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="" rtcDoc:semantics="" rtcDoc:number="" rtcDoc:type="TimedRGBColour" rtcDoc:description="TimedRGBColour型のデータを出力するポート。&lt;br/&gt;配列の要素は0~2の前3つを利用し、足りない場合は0で補填する。"/>
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="" rtcDoc:semantics="" rtcDoc:number="" rtcDoc:type="TimedRGBColour" rtcDoc:description="TimedRGBColour型のデータを出力するポート。"/>
+    </rtc:DataPorts>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="RIGHT" rtcExt:variableName="" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="RTC::TimedLongSeq" rtc:name="TimedLongSeqOut" rtc:portType="DataOutPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="" rtcDoc:semantics="" rtcDoc:number="" rtcDoc:type="TimedLongSeq" rtcDoc:description="TimeLongSeq型のデータを出力するポート。&lt;br/&gt;配列の要素は0~2の前3つを利用し、足りない場合は0で補填する。"/>
     </rtc:DataPorts>
     <rtc:Language xsi:type="rtcExt:language_ext" rtc:kind="C++"/>
 </rtc:RtcProfile>
